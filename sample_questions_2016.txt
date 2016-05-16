@@ -1,0 +1,61 @@
+
+When deriving Simpson's rule, we saw in class that the area under a
+parabola dx wide is dx*(f_left+4*f_mid+f_right).  Write a python
+routine to integrate 1/(1+x^2) using Simpson's rule from -10 to 10,
+but one that accepts as input an arbitrary set of positions for the
+bin edges.  You may assume you get f_left/right passed to you, and you
+calculate the position of f_mid.  Run with bins that are 0.1 wide
+between -1 and 1, and 1 wide otherwise.  Compare that to the answer
+with bins 0.1 wide over the entire region from -10 to 10.
+
+Simpson's rule works by fitting a parabola to 3 points.  If we wished
+to have higher-order accurate integration, one thing we could do is to
+fit a higher-order polynomial.  We can use least-squares fitting to
+fit a polynomial to a region, then do the integral on the polynomial
+to get the set of weights for each data point.  For reference, the set
+of weights for Simpson's rule is (1,4,1).  
+
+
+multi-dimensional discrete Fourier Transforms are frequently used in
+scientific computing.  Write down the equations for a 2-dimensional
+DFT.  Show that it can be done as a series of 1-D DFTs.  If you have
+an N by M array, how does the operation count for a 2-D FFT scale with
+N and M?  You may ignore any multiplicative constants.
+
+Let's compare mesh-based and particle-based methods for doing N-body
+simulations in two dimensions.  Let's say we have N particles, and
+our mesh is m cells on a side, so a total of m^2 cells.  Furthermore,
+let's assume that for a mesh-based gravity solver, the work is
+dominated by the FFT (i.e. the placing of the N particles onto the
+grid is negligible).  Let's say that the total computational work
+required for a particle-particle solver is a*f(N), where 'a' is a
+constant, and f(N) is some function of N - for instance, if adding new
+particles required a linear amount of extra work, f(N) would be equal
+to N^1.  What is f(N)?  Next, let the work for the grid-based solver
+be bg(m), again for some unknown constant 'b'.  What is g(m)?
+Finally, combine these results to find the number of particles at
+which the work required for an direct force calculation and a grid
+calculation are equal.  If you have more particles than this critical
+value, would it be faster to use a grid-based or a direct gravity calculator?
+
+model fitting:  we saw in class that if you have data that depend
+linearly on a model, <d>=Am, that chi^2 can be written down as
+(d-Am)^T N^-1 (d-Am).  Show that this has solution
+m=(A^T N^-1 A)^-1 A^T N^-1 d
+If we assume the noise is constant, that reduces to 
+m=(A^T A)^-1 A^T d.  
+
+This is often used to fit polynomials to data models.  However, for
+some classes of functions, other basis sets may be more useful.  
+Fit e^-x between 1 and 5 (using at least 100 points) using x^-n for
+your basis functions (i.e. columns of A) with n an integer, ranging
+from 0 to 5 (i.e. x^0, x^-1...x^-5).  Recall that numpy.dot will do a
+matrix multiply of arrays, alternatively numpy.matrix will turn an
+array into a matrix.
+
+
+MCMC:  Take the output Markov chain from the class MCMC example.  As
+discuss in class, its power spectrum (the absolute value of its
+Fourier transform squared) should be flat at low frequencies and slope
+down at high frequencies.  Do you see that?  If not, why might that be the case?
+
